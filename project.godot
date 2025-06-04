@@ -13,12 +13,16 @@ config_version=5
 config/name="flappy bird"
 run/main_scene="uid://dy2vk8pgekh8e"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/image="uid://b6qmc1a6c5i2r"
+config/icon="uid://b6qmc1a6c5i2r"
 
 [display]
 
 window/size/viewport_width=288
 window/size/viewport_height=512
+window/size/mode=2
+window/stretch/mode="viewport"
+window/handheld/orientation=1
 
 [global_group]
 
@@ -38,3 +42,5 @@ jump={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+anti_aliasing/quality/msaa_3d=1

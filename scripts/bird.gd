@@ -2,12 +2,16 @@ extends CharacterBody2D
 
 # gets access to the sprite to rotate when jumping
 @onready var sprite: AnimatedSprite2D = $Sprite2D
+@onready var swoosh: AudioStreamPlayer2D = $Swoosh
+
 
 #consts for the gravity and such
 const jump_power := 400.0
 const gravity := 20.0
 const terminal_velocity := 800.0
 const jump_rotate_speed := 0.4
+
+var can_interact = true
 
 # this is where most the code happens
 func _physics_process(delta: float) -> void:
@@ -20,7 +24,8 @@ func _physics_process(delta: float) -> void:
 	sprite.rotation = clamp(sprite.rotation, -0.5, 0.5)
 	
 	# jump
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and can_interact:
+		swoosh.play()
 		velocity.y = 0 - jump_power
 	
 	# deals to gravity

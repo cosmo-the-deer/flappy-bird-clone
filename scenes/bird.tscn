@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://ch5bjqdjje0bc"]
+[gd_scene load_steps=11 format=3 uid="uid://ch5bjqdjje0bc"]
 
 [ext_resource type="Texture2D" uid="uid://dnwab4qjkt84d" path="res://assets/sprites/yellowbird-downflap.png" id="1_hq4t0"]
 [ext_resource type="Script" uid="uid://c4ostc2cuhqax" path="res://scripts/bird.gd" id="1_twsrt"]
 [ext_resource type="Texture2D" uid="uid://g64ocn8xko7s" path="res://assets/sprites/yellowbird-midflap.png" id="2_twsrt"]
 [ext_resource type="Texture2D" uid="uid://bx175uxaqvia1" path="res://assets/sprites/yellowbird-upflap.png" id="3_b7mtg"]
+[ext_resource type="AudioStream" uid="uid://d06scesaku801" path="res://assets/audio/swoosh.wav" id="5_b7mtg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bdh3x"]
 atlas = ExtResource("1_hq4t0")
@@ -41,6 +42,7 @@ animations = [{
 radius = 9.0
 
 [node name="Bird" type="CharacterBody2D" groups=["bird"]]
+z_index = 5
 script = ExtResource("1_twsrt")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
@@ -52,3 +54,6 @@ frame_progress = 0.163466
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 scale = Vector2(1.5, 1.5)
 shape = SubResource("CircleShape2D_twsrt")
+
+[node name="Swoosh" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_b7mtg")
