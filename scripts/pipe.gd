@@ -12,10 +12,3 @@ func _init():
 
 func _physics_process(delta: float) -> void:
 	position.x -= pipe_speed * delta  
-
-
-func _on_body_entered(body: Node2D) -> void:
-	print("body enterd")
-	if body == bird:
-		print("bird died")
-		get_tree().reload_current_scene() # change to call death func

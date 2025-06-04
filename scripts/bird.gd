@@ -7,7 +7,7 @@ extends CharacterBody2D
 const jump_power := 400.0
 const gravity := 20.0
 const terminal_velocity := 800.0
-const jump_rotate_speed := 5
+const jump_rotate_speed := 0.4
 
 # this is where most the code happens
 func _physics_process(delta: float) -> void:

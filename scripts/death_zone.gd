@@ -7,6 +7,7 @@ extends Area2D
 
 # handles the death
 func _on_body_entered(body: Node2D) -> void:
-	if body == bird:
+	print("body entered")
+	if body == get_tree().get_first_node_in_group("bird"):
 		print("bird died")
 		get_tree().reload_current_scene() # change to call death func
