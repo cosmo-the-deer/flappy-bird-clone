@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=3 uid="uid://dy2vk8pgekh8e"]
+
+[ext_resource type="Shader" uid="uid://cidh0ydotlopy" path="res://scenes/background.gdshader" id="1_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://cy16xfbj0rqoo" path="res://assets/sprites/background-day.png" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://ch5bjqdjje0bc" path="res://scenes/bird.tscn" id="3_sugp2"]
+[ext_resource type="Texture2D" uid="uid://ddtx1fomf235b" path="res://assets/sprites/base.png" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://c4xh05pjujvlb" path="res://scenes/death_zone.tscn" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://57u1v3y2vo85" path="res://scripts/pipe_manager.gd" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://bymxqb1gfpq2x" path="res://scenes/pipe.tscn" id="7_o6xl0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sugp2"]
+shader = ExtResource("1_0wfyh")
+shader_parameter/direction = Vector2(1, 0)
+shader_parameter/speed_scale = 0.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyhfs"]
+shader = ExtResource("1_0wfyh")
+shader_parameter/direction = Vector2(1, 0)
+shader_parameter/speed_scale = 0.2
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tefeu"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_sugp2")
+texture = ExtResource("1_o5qli")
+region_rect = Rect2(90, 0, 198, 512)
+
+[node name="Base" type="Sprite2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_jyhfs")
+position = Vector2(4, 251)
+texture = ExtResource("4_jyhfs")
+region_rect = Rect2(90, 0, 198, 512)
+
+[node name="Bird" parent="." instance=ExtResource("3_sugp2")]
+unique_name_in_owner = true
+position = Vector2(-86, -107)
+
+[node name="FloorKillZone" parent="." instance=ExtResource("5_tbgi4")]
+position = Vector2(-19, 197)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorKillZone"]
+shape = SubResource("WorldBoundaryShape2D_tefeu")
+
+[node name="RoofKillZone" parent="." instance=ExtResource("5_tbgi4")]
+position = Vector2(0, -257)
+rotation = 3.14159
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoofKillZone"]
+shape = SubResource("WorldBoundaryShape2D_tefeu")
+
+[node name="PipeManager" type="Node" parent="."]
+script = ExtResource("6_tefeu")
+
+[node name="Timer" type="Timer" parent="PipeManager"]
+wait_time = 3.0
+autostart = true
+
+[node name="Pipe" parent="PipeManager" instance=ExtResource("7_o6xl0")]
+
+[node name="MainCamera" type="Camera2D" parent="."]
+
+[connection signal="timeout" from="PipeManager/Timer" to="PipeManager" method="_on_timer_timeout"]
